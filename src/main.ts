@@ -1,5 +1,4 @@
 import './styles.css'
-import { setupCounter } from './counter.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="flex gap-12">
@@ -166,23 +165,23 @@ function drawInner() {
     }
 }
 
-document.addEventListener('keydown', (event) => {
-    if (event.repeat) return; // Skip repeated keydown events
-    if (event.key === 'w') { // Change to the desired key
+document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.repeat) return; // Skip repeated keydown events
+    if (e.key === 'w') { // Change to the desired key
         startUpdatingNumber();
     }
 });
 
-document.addEventListener('keyup', (event) => {
-    if (event.key === 'w') { // Change to the same key used in keydown event
+document.addEventListener('keyup', (e: KeyboardEvent) => {
+    if (e.key === 'w') { // Change to the same key used in keydown event
         stopUpdatingNumber();
     }
 });
 
-svg.addEventListener('mousemove', (event) => {
+svg.addEventListener('mousemove', (e: MouseEvent) => {
     // Get mouse coordinates relative to the viewport
-    const clientX = event.clientX;
-    const clientY = event.clientY;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
     // Transform client coordinates to SVG coordinate space
     svgX = between(-18, 18, 0 - ((matrix.a * clientX) + (matrix.c * clientY) + matrix.e));
