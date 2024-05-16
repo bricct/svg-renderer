@@ -15,39 +15,31 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="text-2xl font-bold text-gray-800 mb-4">yeoeeee</div>
   <div class="absolute flex left-0 right-0 m-auto justify-center cursor-none">
   <svg id="svg" height="600" width="800" viewBox="-24 -18 48 36" xmlns="http://www.w3.org/2000/svg">
-    <line id="up-left" x1="-24" y1="-18" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="down-left" x1="-24" y1="18" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="up-right" x1="24" y1="-18" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="down-right" x1="24" y1="18" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="up" x1="-24" y1="-18" x2="24" y2="-18" style="stroke:blue;stroke-width:0.1" />
-    <line id="right" x1="24" y1="-18" x2="24" y2="18" style="stroke:blue;stroke-width:0.1" />
-    <line id="down" x1="-24" y1="18" x2="24" y2="18" style="stroke:blue;stroke-width:0.1" />
-    <line id="left" x1="-24" y1="-18" x2="-24" y2="18" style="stroke:blue;stroke-width:0.1" />
-    <line id="inner-up" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="inner-right" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="inner-down" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="inner-left" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="0-0-1" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="1-0-1" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="2-0-1" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="3-0-1" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="0-0-3" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="1-0-3" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="2-0-3" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="3-0-3" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="0-2-1" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="1-2-1" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="2-2-1" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="3-2-1" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="0-2-3" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="1-2-3" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="2-2-3" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
-    <line id="3-2-3" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.1" />
+    <line id="up-left" x1="-24" y1="-18" x2="0" y2="0" style="stroke:blue;stroke-width:0.05" />
+    <line id="down-left" x1="-24" y1="18" x2="0" y2="0" style="stroke:blue;stroke-width:0.05" />
+    <line id="up-right" x1="24" y1="-18" x2="0" y2="0" style="stroke:blue;stroke-width:0.05" />
+    <line id="down-right" x1="24" y1="18" x2="0" y2="0" style="stroke:blue;stroke-width:0.05" />
+    <line id="up" x1="-24" y1="-18" x2="24" y2="-18" style="stroke:blue;stroke-width:0.4" />
+    <line id="right" x1="24" y1="-18" x2="24" y2="18" style="stroke:blue;stroke-width:0.4" />
+    <line id="down" x1="-24" y1="18" x2="24" y2="18" style="stroke:blue;stroke-width:0.4" />
+    <line id="left" x1="-24" y1="-18" x2="-24" y2="18" style="stroke:blue;stroke-width:0.4" />
+    <line id="inner-up" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.05" />
+    <line id="inner-right" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.05" />
+    <line id="inner-down" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.05" />
+    <line id="inner-left" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.05" />
   </div>
 `
+const svg = document.getElementById("svg")!;
+
+for (let i=0; i<2; i++) {
+    for (let j=0; j<2; j++) {
+        for (let k=0; k<4; k++) {
+            svg.innerHTML += `<line id="${k}-${i * 2}-${(j * 2) + 1}" x1="0" y1="0" x2="0" y2="0" style="stroke:blue;stroke-width:0.${k+1}" />`
+        }
+    }
+}
 
 type Point = { x: number, y: number };
-const svg = document.getElementById("svg")! as any;
 
 const upLeft = document.getElementById('up-left')!;
 const downLeft = document.getElementById('down-left')!;
@@ -65,8 +57,10 @@ const lines = [upLeft, upRight, downRight, downLeft];
 const innerLines = [innerUp, innerRight, innerDown, innerLeft];
 const fibs = [3, 5, 8, 13];
 const fibDiffs = [2, 3, 5, 8];
+const widths = [0.1, 0.2, 0.3, 0.4];
+const widthDiff = 0.1;
 const fibSum = 21;
-// const fibRatios = fibs.map((x) => x/fibSum);
+const speed = 0.1;
 
 const adjustFib = (fibIdx: number, scale: number): number => {
     const fib = fibs[fibIdx];
@@ -78,12 +72,15 @@ const adjust = (fib: number, diff: number, scale: number): number => {
     return (fib + ((scale/numberMax) * diff)) / fibSum;
 }
 
+const adjustWidth = (width: number, scale: number): number => {
+    return (width + ((scale/numberMax) * widthDiff));
+}
+
 const between = (l: number, u: number, x: number) => Math.max(l, (Math.min(u, x)));
 
-const matrix = svg.getScreenCTM().inverse(); 
+const matrix = (svg as any).getScreenCTM().inverse(); 
 
 let intervalId: number | null = null;
-let speed = 0.1;
 
 function updateNumber() {
     if (number < numberMax) {
@@ -122,6 +119,8 @@ function draw() {
         pts.push(sidePts);
     }
 
+    const scaledWidths = widths.map((w) => adjustWidth(w, number));
+
     for (let from = 0; from <= 2; from+=2) {
         for (let to = 1; to <= 3; to+=2) {
             for (let i = 0; i < 4; i++)
@@ -131,15 +130,13 @@ function draw() {
                 l.setAttribute('y1', pts[from][i].y.toFixed(3));
                 l.setAttribute('x2', pts[to][i].x.toFixed(3));
                 l.setAttribute('y2', pts[to][i].y.toFixed(3));
+                l.setAttribute('style', `stroke:blue;stroke-width:${scaledWidths[i].toFixed(3)}`);
             }
         }
     }
 }
 
-
 function drawInner() {
-
-
     const innerPts : Point[] = [];
     for (const line of lines) {
         const pt1 = { x: parseFloat(line.getAttribute('x1')!),  y: parseFloat(line.getAttribute('y1')!)};
