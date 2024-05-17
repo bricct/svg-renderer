@@ -1,4 +1,5 @@
 import './styles.css'
+import { EventListener } from './types';
 
 const color='white'
 
@@ -177,38 +178,60 @@ export function render(app: HTMLElement) {
         }
     }
 
-    document.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.repeat) return; // Skip repeated keydown events
-        if (e.key === 'w') { // Change to the desired key
-            stopUpdatingNumber();
-            startUpdatingNumber(1);
-        } else if (e.key === 's') 
-            {
+
+
+    const keyDown: EventListener = { 
+        type: 'keydown', 
+        listener: (e: KeyboardEvent) => {
+            if (e.repeat) return; // Skip repeated keydown events
+            if (e.key === 'w') { // Change to the desired key
                 stopUpdatingNumber();
-                startUpdatingNumber(-1)
-            }
-    });
-
-    document.addEventListener('keyup', (e: KeyboardEvent) => {
-        if (e.key === 'w' || e.key === 's') { // Change to the same key used in keydown event
-            stopUpdatingNumber();
+                startUpdatingNumber(1);
+            } else if (e.key === 's') 
+                {
+                    stopUpdatingNumber();
+                    startUpdatingNumber(-1)
+                }
         }
-    });
+    };
 
-    svg.addEventListener('mousemove', (e: MouseEvent) => {
-        // Get mouse coordinates relative to the viewport
-        const clientX = e.clientX;
-        const clientY = e.clientY;
+    const keyUp: EventListener = { 
+        type: 'keyup', 
+        listener: (e: KeyboardEvent) => {
+            if (e.key === 'w' || e.key === 's') { // Change to the same key used in keydown event
+                stopUpdatingNumber();
+            }
+        }
+    };
 
-        // Transform client coordinates to SVG coordinate space
-        svgX = between(-18, 18, 0 - ((matrix.a * clientX) + (matrix.c * clientY) + matrix.e));
-        svgY = between(-12, 12, 0 - ((matrix.b * clientX) + (matrix.d * clientY) + matrix.f));
+    const mouseMove: EventListener = {
+        type: 'mousemove', 
+        listener: (e: MouseEvent) => {
+            // Get mouse coordinates relative to the viewport
+            const clientX = e.clientX;
+            const clientY = e.clientY;
 
-        draw();
-        drawInner();
-    });
+            // Transform client coordinates to SVG coordinate space
+            svgX = between(-18, 18, 0 - ((matrix.a * clientX) + (matrix.c * clientY) + matrix.e));
+            svgY = between(-12, 12, 0 - ((matrix.b * clientX) + (matrix.d * clientY) + matrix.f));
+
+            draw();
+            drawInner();
+        }
+    };
+
+    document.addEventListener(keyDown.type, keyDown.listener);
+    document.addEventListener(keyUp.type, keyUp.listener);
+    svg.addEventListener(mouseMove.type, mouseMove.listener);
 
     draw();
     drawInner();
 
+    function cleanup() {
+        document.removeEventListener(keyDown.type, keyDown.listener);
+        document.removeEventListener(keyUp.type, keyUp.listener);
+        svg.removeEventListener(mouseMove.type, mouseMove.listener);
+    }
+
+    return cleanup;
 }
