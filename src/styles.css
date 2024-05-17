@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Space Mono', monospace;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 500;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #000000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,10 +17,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+    height: 100%;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 button {
