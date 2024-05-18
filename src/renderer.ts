@@ -1,6 +1,6 @@
 import './styles.css';
 import { EventListener } from './types';
-const color = 'white';
+// const color = 'white';
 
 
 type Point = { x: number, y: number, z: number };
@@ -189,7 +189,7 @@ export function render(app: HTMLDivElement): () => void {
         let newSvg: string = '';
 
         outLines.forEach((line, idx) => {
-            newSvg += `<line id="${idx}" x1="${line.from.x}" y1="${line.from.y}" x2="${line.to.x}" y2="${line.to.y}" style="stroke:${color};stroke-width:${line.width}" />`
+            newSvg += `<line id="${idx}" x1="${line.from.x}" y1="${line.from.y}" x2="${line.to.x}" y2="${line.to.y}" style="stroke-width:${line.width}" />`
         });
 
         svg.innerHTML = newSvg;
@@ -251,12 +251,12 @@ export function render(app: HTMLDivElement): () => void {
             else if (e.key === 'a') 
             {
                 stopUpdating(movementIntervalId);
-                startUpdatingMovement((p, v) => p.x += v, 1);
+                startUpdatingMovement((p, v) => p.x += v, -1);
             }
             else if (e.key === 'd') 
             {
                 stopUpdating(movementIntervalId);
-                startUpdatingMovement((p, v) => p.x += v, -1);
+                startUpdatingMovement((p, v) => p.x += v, 1);
             }
         }
     };

@@ -9,7 +9,7 @@ export function render(content: HTMLElement, app: App) {
         content.innerHTML = `
         <div class="flex flex-col items-center gap-2">
             <div>Move cube: 'w' | 'a' | 's' | 'd' | 'shift' | 'space' </div>
-            <div>Look: '<' | '^' | 'v' | '>' </div>
+            <div class="inline-block" >Look: '<' | '^' | 'v' | '>' </div>
         </div>
         `;
     }

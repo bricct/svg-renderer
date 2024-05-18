@@ -41,6 +41,13 @@ button:hover {
   border-color: #646cff;
 }
 
+svg > line {
+    stroke: #FFFFFF;
+}
+svg > polygon {
+    fill: #FFFFFF;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -49,4 +56,11 @@ button:hover {
   button {
     background-color: #f9f9f9;
   }
+   svg > line {
+      stroke: #000000;
+  }
+   svg > polygon {
+      fill: #000000;
+  }
 }
+

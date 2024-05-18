@@ -1,29 +1,27 @@
 import './styles.css'
 import { EventListener } from './types';
 
-const color='white'
-
 export function render(app: HTMLElement) {
 
     app.innerHTML = `
     <div class="flex left-0 right-0 m-auto justify-center items-center">
     <svg id="svg" class="cursor-none" height="600" width="800" viewBox="-24 -18 48 36" xmlns="http://www.w3.org/2000/svg">
-        <line id="up-left" x1="-24" y1="-18" x2="0" y2="0" style="stroke:${color};stroke-width:0.05" />
-    <line id="down-left" x1="-24" y1="18" x2="0" y2="0" style="stroke:${color};stroke-width:0.05" />
-    <line id="up-right" x1="24" y1="-18" x2="0" y2="0" style="stroke:${color};stroke-width:0.05" />
-    <line id="down-right" x1="24" y1="18" x2="0" y2="0" style="stroke:${color};stroke-width:0.05" />
-    <polygon id="up-left-tri" points="-24,-17.6 -24,-18 -23.6,-18 0,0" style="fill:${color}" />
-    <polygon id="down-left-tri" points="-24,17.6 -24,18 -23.6,18 0,0" style="fill:${color}" />
-    <polygon id="up-right-tri" points="24,-17.6 24,-18 23.6,-18 0,0" style="fill:${color}" />
-    <polygon id="down-right-tri" points="24,17.6 24,18 23.6,18 0,0" style="fill:${color}" />
-    <line id="up" x1="-24" y1="-18" x2="24" y2="-18" style="stroke:${color};stroke-width:0.8" />
-    <line id="right" x1="24" y1="-18" x2="24" y2="18" style="stroke:${color};stroke-width:0.8" />
-    <line id="down" x1="-24" y1="18" x2="24" y2="18" style="stroke:${color};stroke-width:0.8" />
-    <line id="left" x1="-24" y1="-18" x2="-24" y2="18" style="stroke:${color};stroke-width:0.8" />
-    <line id="inner-up" x1="0" y1="0" x2="0" y2="0" style="stroke:${color};stroke-width:0.05" />
-    <line id="inner-right" x1="0" y1="0" x2="0" y2="0" style="stroke:${color};stroke-width:0.05" />
-    <line id="inner-down" x1="0" y1="0" x2="0" y2="0" style="stroke:${color};stroke-width:0.05" />
-    <line id="inner-left" x1="0" y1="0" x2="0" y2="0" style="stroke:${color};stroke-width:0.05" />
+        <line id="up-left" x1="-24" y1="-18" x2="0" y2="0" style="stroke-width:0.05" />
+    <line id="down-left" x1="-24" y1="18" x2="0" y2="0" style="stroke-width:0.05" />
+    <line id="up-right" x1="24" y1="-18" x2="0" y2="0" style="stroke-width:0.05" />
+    <line id="down-right" x1="24" y1="18" x2="0" y2="0" style="stroke-width:0.05" />
+    <polygon id="up-left-tri" points="-24,-17.6 -24,-18 -23.6,-18 0,0" />
+    <polygon id="down-left-tri" points="-24,17.6 -24,18 -23.6,18 0,0" />
+    <polygon id="up-right-tri" points="24,-17.6 24,-18 23.6,-18 0,0" />
+    <polygon id="down-right-tri" points="24,17.6 24,18 23.6,18 0,0" />
+    <line id="up" x1="-24" y1="-18" x2="24" y2="-18" style="stroke-width:0.8" />
+    <line id="right" x1="24" y1="-18" x2="24" y2="18" style="stroke-width:0.8" />
+    <line id="down" x1="-24" y1="18" x2="24" y2="18" style="stroke-width:0.8" />
+    <line id="left" x1="-24" y1="-18" x2="-24" y2="18" style="stroke-width:0.8" />
+    <line id="inner-up" x1="0" y1="0" x2="0" y2="0" style="stroke-width:0.05" />
+    <line id="inner-right" x1="0" y1="0" x2="0" y2="0" style="stroke-width:0.05" />
+    <line id="inner-down" x1="0" y1="0" x2="0" y2="0" style="stroke-width:0.05" />
+    <line id="inner-left" x1="0" y1="0" x2="0" y2="0" style="stroke-width:0.05" />
     </svg>
     </div>
     `
@@ -32,7 +30,7 @@ export function render(app: HTMLElement) {
     for (let i=0; i<2; i++) {
         for (let j=0; j<2; j++) {
             for (let k=0; k<4; k++) {
-                svg.innerHTML += `<line id="${k}-${i * 2}-${(j * 2) + 1}" x1="0" y1="0" x2="0" y2="0" style="stroke:${color};stroke-width:0.${k+1}" />`
+                svg.innerHTML += `<line id="${k}-${i * 2}-${(j * 2) + 1}" x1="0" y1="0" x2="0" y2="0" style="stroke-width:0.${k+1}" />`
             }
         }
     }
@@ -115,7 +113,7 @@ export function render(app: HTMLElement) {
     }
 
     function setLineWidth(l: HTMLElement, width: number) {
-        l.setAttribute('style', `stroke:${color};stroke-width:${width.toFixed(3)}`);
+        l.setAttribute('style', `stroke-width:${width.toFixed(3)}`);
     }
 
     function draw() {
