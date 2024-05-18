@@ -208,8 +208,8 @@ export function render(app: HTMLDivElement, cubes: Point[], setCubes: (cubes: Po
             const toTheta = calcTheta(normalized.to);
             const toPhi = calcPhi(normalized.to);
 
-            const outFrom = { x: fromPhi, y: -fromTheta };
-            const outTo = { x: toPhi, y: -toTheta };
+            const outFrom: Point2D = { x: fromPhi, y: -fromTheta };
+            const outTo: Point2D = { x: toPhi, y: -toTheta };
 
             const width = ((invMagnitude(line.from) + invMagnitude(line.to)) / 2) * defaultStroke;
             const outLine = { from: outFrom, to: outTo, width };
