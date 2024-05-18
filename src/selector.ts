@@ -5,8 +5,8 @@ export function render(selector: HTMLDivElement, onChange: (selection: App) => v
 
     selector.innerHTML = `
         <div class='inline-block'>
-            <button id='tunnel-button'>Tunnel</button>
             <button id='cube-button'>Cube</button>
+            <button id='tunnel-button'>Tunnel</button>
         </div>`
 
 

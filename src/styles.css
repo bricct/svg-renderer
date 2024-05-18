@@ -53,12 +53,16 @@ svg > polygon {
     fill: var(--color);
 }
 
-.key {
-    display: inline-block;
+.keys {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 12px;
 }
 
-.key > * {
-    background-color: var(--buton-color);
+.keys > * {
+    background-color: var(--button-color);
+    padding: 0 6px;
+    border-radius: 4px;
 }
 
 

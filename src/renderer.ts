@@ -1,11 +1,6 @@
 import './styles.css';
-import { EventListener } from './types';
+import { EventListener, Point, Point2D, Line, Line2D } from './types';
 
-type Point = { x: number, y: number, z: number };
-type Line = { from: Point, to: Point };
-
-type Point2D = { x: number, y: number };
-type Line2D = { from: Point2D, to: Point2D, width: number };
 
 const radToDeg = (radians: number): number => {
     return radians * (180 / Math.PI);
@@ -46,7 +41,7 @@ const calcPhi = (point: Point) => {
 }
 
 
-export function render(app: HTMLDivElement): () => void {
+export function render(app: HTMLDivElement, cubes: Point[], setCubes: (cubes: Point[]) => void): () => void {
 
     // viewing angles in degrees
     let yMin = -45;
@@ -71,11 +66,8 @@ export function render(app: HTMLDivElement): () => void {
     const svg = document.getElementById("svg")!;
 
     let movementIntervalId: number | null = null;
-    let cubePos: Point = { x: 0, y: 0, z: 1.5 };
     let cubeScale: number = 2;
     const speed = 0.1;
-    const newCubePos = {x: 1, y: 2.5, z: 2.5};
-    let cubes: Point[] = [ cubePos, newCubePos ];
     
 
     function updatePosition(mutator: (p: Point, value: number) => void, scalar: number) {
@@ -191,8 +183,15 @@ export function render(app: HTMLDivElement): () => void {
 
     function removeOldCubes() {
         if (cubes.length === 0) return;
-        cubes = cubes.filter((pos) => magnitude(pos) < 200).slice(Math.max(cubes.length - 200, 0), cubes.length);
+        setCubes(cubes.filter((pos) => magnitude(pos) < 200).slice(Math.max(cubes.length - 200, 0), cubes.length));
     }
+
+    const lineToSvg = (id: number, line: Line2D) => (
+        `<line id="${id}" x1="${line.from.x.toFixed(3)}" 
+                          y1="${line.from.y.toFixed(3)}" 
+                          x2="${line.to.x.toFixed(3)}" 
+                          y2="${line.to.y.toFixed(3)}" 
+                          style="stroke-width:${line.width.toFixed(3)}" />`);
 
     function draw() {
         
@@ -218,11 +217,7 @@ export function render(app: HTMLDivElement): () => void {
             outLines.push(outLine);
         }
 
-        let newSvg: string = '';
-
-        outLines.forEach((line, idx) => {
-            newSvg += `<line id="${idx}" x1="${line.from.x.toFixed(3)}" y1="${line.from.y.toFixed(3)}" x2="${line.to.x.toFixed(3)}" y2="${line.to.y.toFixed(3)}" style="stroke-width:${line.width.toFixed(3)}" />`
-        });
+        let newSvg: string = outLines.map((line, idx) => lineToSvg(idx, line)).join();
 
         svg.innerHTML = newSvg;
     }
@@ -328,5 +323,4 @@ export function render(app: HTMLDivElement): () => void {
 
     return cleanup;
 }
-
 
