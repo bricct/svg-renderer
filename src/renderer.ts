@@ -228,12 +228,12 @@ export function render(app: HTMLDivElement, cubes: Point[], setCubes: (cubes: Po
             if (e.repeat) return; 
             if (e.key === 'w') { 
                 stopUpdating(movementIntervalId);
-                startUpdatingMovement((p, v) => p.z += v, 1);
+                startUpdatingMovement((p, v) => p.z += v, -1);
             } 
             else if (e.key === 's') 
             {
                 stopUpdating(movementIntervalId)
-                startUpdatingMovement((p, v) => p.z += v, -1);
+                startUpdatingMovement((p, v) => p.z += v, 1);
             }
             else if (e.key === 'ArrowRight') 
             {
@@ -278,12 +278,12 @@ export function render(app: HTMLDivElement, cubes: Point[], setCubes: (cubes: Po
             else if (e.key === 'a') 
             {
                 stopUpdating(movementIntervalId);
-                startUpdatingMovement((p, v) => p.x += v, -1);
+                startUpdatingMovement((p, v) => p.x += v, 1);
             }
             else if (e.key === 'd') 
             {
                 stopUpdating(movementIntervalId);
-                startUpdatingMovement((p, v) => p.x += v, 1);
+                startUpdatingMovement((p, v) => p.x += v, -1);
             }
             else if (e.key === 'Enter') 
             {

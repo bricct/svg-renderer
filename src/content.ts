@@ -9,7 +9,7 @@ export function render(content: HTMLElement, app: App) {
     if (app === 'cube') {
         content.innerHTML = `
         <div class="flex flex-col items-center gap-2">
-            <div>Move cubes:
+            <div>Move:
                 <div class="keys"> 
                    <div>w</div>
                    <div>a</div>
