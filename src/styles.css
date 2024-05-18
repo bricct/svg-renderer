@@ -8,8 +8,13 @@
   font-weight: 500;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #000000;
+  --color: rgba(255, 255, 255, 0.87);
+  --background: #000000;
+  --button-color: #1a1a1a;
+  --button-hover: #F4F4F4;
+
+  color: var(--color);
+  background-color: var(--background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -33,34 +38,46 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--button-color);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--button-hover);
 }
 
 svg > line {
-    stroke: #FFFFFF;
+    stroke: var(--color);
 }
 svg > polygon {
-    fill: #FFFFFF;
+    fill: var(--color);
 }
+
+.key {
+    display: inline-block;
+}
+
+.key > * {
+    background-color: var(--buton-color);
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --color: #213547;
+    --background: #ffffff;
+    --button-color: #f9f9f9;
+    --button-hover: #4F4F4F; 
   }
+  /* 
   button {
     background-color: #f9f9f9;
-  }
-   svg > line {
+  } */
+  /* svg > line {
       stroke: #000000;
   }
    svg > polygon {
       fill: #000000;
-  }
+  } */
 }
 

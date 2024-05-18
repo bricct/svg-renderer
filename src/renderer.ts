@@ -1,7 +1,5 @@
 import './styles.css';
 import { EventListener } from './types';
-// const color = 'white';
-
 
 type Point = { x: number, y: number, z: number };
 type Line = { from: Point, to: Point };
@@ -12,7 +10,6 @@ type Line2D = { from: Point2D, to: Point2D, width: number };
 const radToDeg = (radians: number): number => {
     return radians * (180 / Math.PI);
 }
-
 
 const magnitude = (point: Point) => {
     return Math.sqrt((point.x ** 2) + (point.y ** 2) + (point.z ** 2));
@@ -77,15 +74,17 @@ export function render(app: HTMLDivElement): () => void {
     let cubePos: Point = { x: 0, y: 0, z: 1.5 };
     let cubeScale: number = 2;
     const speed = 0.1;
+    const newCubePos = {x: 1, y: 2.5, z: 2.5};
+    let cubes: Point[] = [ cubePos, newCubePos ];
     
 
     function updatePosition(mutator: (p: Point, value: number) => void, scalar: number) {
-        mutator(cubePos, (speed * scalar));
+        cubes.forEach((pos) => mutator(pos, (speed * scalar)));
         draw();
     }
 
     function startUpdatingMovement(mutator: (p: Point, value: number) => void, scalar: number) {
-        movementIntervalId = setInterval(() => updatePosition(mutator, scalar), 20); // Adjust the interval as needed
+        movementIntervalId = setInterval(() => updatePosition(mutator, scalar), 20);
     }
 
     function stopUpdating(intervalId: number | null) {
@@ -97,22 +96,41 @@ export function render(app: HTMLDivElement): () => void {
     }
 
     function lookY(dir: number) {
+        const delta = dir * lookSpeed;
+        if ((yMin + delta) < -180 || (yMax + delta) > 180)
+            return;
         yMin += dir * lookSpeed;
         yMax += dir * lookSpeed;
+
         drawViewBox();
     }
 
     function lookX(dir: number) {
+        const delta = dir * lookSpeed;
+        if ((xMin + delta) < -225 || (xMax + delta) > 225)
+            return;
         xMin += dir * lookSpeed;
         xMax += dir * lookSpeed;
         drawViewBox();
     }
 
+    function between(a: number, l: number, u: number) { return a > l && a < u }
+
     function zoom(dir: number) {
-        xMin -= dir * zoomSpeed;
-        xMax += dir * zoomSpeed;
-        yMin -= dir * zoomSpeed;
-        yMax += dir * zoomSpeed;
+        const delta = dir * zoomSpeed;
+        const xNewMax = xMax + delta;
+        const xNewMin = xMin - delta;
+        const yNewMax = yMax + delta;
+        const yNewMin = yMin - delta;
+        if (!between(xNewMax, xNewMin, 225)  || 
+            !between(xNewMin, -225, xNewMax) ||
+            !between(yNewMax, yNewMin, 180)  ||
+            !between(yNewMin, -180, yNewMax)) 
+            return;
+        xMin = xNewMin
+        xMax = xNewMax;
+        yMin = yNewMin;
+        yMax = yNewMax;
         drawViewBox();
     }
 
@@ -122,11 +140,11 @@ export function render(app: HTMLDivElement): () => void {
 
 
     function startUpdatingLookX(scalar: number) {
-        lookXInterval = setInterval(() => lookX(scalar), 20); // Adjust the interval as needed
+        lookXInterval = setInterval(() => lookX(scalar), 20);
     }
 
     function startUpdatingLookY(scalar: number) {
-        lookYInterval = setInterval(() => lookY(scalar), 20); // Adjust the interval as needed
+        lookYInterval = setInterval(() => lookY(scalar), 20);
     }
 
     function startUpdatingZoom(scalar: number) {
@@ -163,10 +181,24 @@ export function render(app: HTMLDivElement): () => void {
         return lines;
     }
 
+
+    function addRandomCube() {
+        const getRand = (l: number, u: number) => (Math.random() * (u - l) + l);
+        const pos = { x: getRand(-5, 5), y: getRand(-5, 5), z: getRand(2, 6) };
+        cubes.push(pos);
+        removeOldCubes();
+    }
+
+    function removeOldCubes() {
+        if (cubes.length === 0) return;
+        cubes = cubes.filter((pos) => magnitude(pos) < 200).slice(Math.max(cubes.length - 200, 0), cubes.length);
+    }
+
     function draw() {
-
-
-        const lines: Line[] = getCube(cubePos, cubeScale);
+        
+        const lines: Line[] = cubes
+            .filter((pos) => magnitude(pos) < 25 && pos.z > 0.5)
+            .flatMap((p) => getCube(p, cubeScale));
 
         const outLines: Line2D[] = [];
 
@@ -189,7 +221,7 @@ export function render(app: HTMLDivElement): () => void {
         let newSvg: string = '';
 
         outLines.forEach((line, idx) => {
-            newSvg += `<line id="${idx}" x1="${line.from.x}" y1="${line.from.y}" x2="${line.to.x}" y2="${line.to.y}" style="stroke-width:${line.width}" />`
+            newSvg += `<line id="${idx}" x1="${line.from.x.toFixed(3)}" y1="${line.from.y.toFixed(3)}" x2="${line.to.x.toFixed(3)}" y2="${line.to.y.toFixed(3)}" style="stroke-width:${line.width.toFixed(3)}" />`
         });
 
         svg.innerHTML = newSvg;
@@ -201,12 +233,12 @@ export function render(app: HTMLDivElement): () => void {
             if (e.repeat) return; 
             if (e.key === 'w') { 
                 stopUpdating(movementIntervalId);
-                startUpdatingMovement((p, v) => {if ((p.z + v) > 1) p.z += v}, 1);
+                startUpdatingMovement((p, v) => p.z += v, 1);
             } 
             else if (e.key === 's') 
             {
                 stopUpdating(movementIntervalId)
-                startUpdatingMovement((p, v) => {if ((p.z + v) > 1) p.z += v}, -1);
+                startUpdatingMovement((p, v) => p.z += v, -1);
             }
             else if (e.key === 'ArrowRight') 
             {
@@ -257,6 +289,11 @@ export function render(app: HTMLDivElement): () => void {
             {
                 stopUpdating(movementIntervalId);
                 startUpdatingMovement((p, v) => p.x += v, 1);
+            }
+            else if (e.key === 'Enter') 
+            {
+                addRandomCube();
+                draw();
             }
         }
     };
